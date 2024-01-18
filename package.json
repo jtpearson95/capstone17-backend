@@ -18,6 +18,8 @@
     "axios": "^1.6.5",
     "better-sqlite3": "8.6.0",
     "next-auth": "^4.24.5",
+    "pg": "^8.11.3",
+    "pg-connection-string": "^2.6.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
@@ -30,8 +32,8 @@
     "uuid": "b0d53833-9a9a-4d59-a167-ebc73a1f710f"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
+    "node": "20.x.x",
+    "npm": "10.x.x"
   },
   "license": "MIT"
 }
