@@ -17,17 +17,17 @@ module.exports = createCoreController('api::order.order', ({ strapi }) =>  ({
       // Check if the body is already an object
       const bodyData = typeof body === 'object' ? body : JSON.parse(body);
       console.log('create order call DATA: ' + JSON.stringify(bodyData));
-      const { address, amount, dishes, payment_method, city, state } = bodyData.data;
+      const { address, amount, dishes, payment_method, city, state, token } = bodyData.data;
       const stripeAmount = Math.floor(amount * 100);
-      console.log('create order call TOKEN: ' + JSON.stringify(payment_method));
+      // console.log('create order call TOKEN: ' + JSON.stringify(payment_method));
       console.log('create order call STRIPEAMOUNT: ' + JSON.stringify(stripeAmount));
+      console.log("STRIPE Token:", token);
   
       const charge = await stripe.charges.create({
         amount: stripeAmount,
         currency: 'usd',
         description: `Order ${new Date()} by ${ctx.state.user._id}`,
-        payment_method: payment_method.id,
-        confirm: true,
+        source: token, 
       });
   
       const entity = await strapi.service('api::order.order').create({
@@ -54,14 +54,6 @@ module.exports = createCoreController('api::order.order', ({ strapi }) =>  ({
     }
   },
 }))
-
-    // const paymentIntent = await stripe.paymentIntents.create({
-      //   amount: stripeAmount,
-      //   currency: 'usd',
-      //   description: `Order ${new Date()} by ${ctx.state.user._id}`,
-      //   payment_method: token,
-      //   confirm: true,
-      // });
 
 // "use strict";
 // /**
